@@ -1,0 +1,31 @@
+.card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: contain;
+}
+
+#product-details img {
+    max-height: 400px;
+}
+
+#product-details .card-body {
+    padding: 0;
+}
+
+#product-details .card-title {
+    font-size: 20px;
+}
+
+#product-details .card-text {
+    font-size: 14px;
+}
+
+#H1 {
+    background-color: red;
+}

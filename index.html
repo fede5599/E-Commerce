@@ -16,13 +16,19 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Prodotti</a>
+                        <a class="nav-link" href="CatalogoProdotti.html">Prodotti</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Categorie</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Accedi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="carrello.html">Carrello</a>
                     </li>
                 </ul>
             </div>
@@ -60,27 +66,35 @@
             <div class="row mt-4 d-flex justify-content-center text-center">
                 <div class="col-5">
                     <h2> Cerca un prodotto </h2>
-                    <form class="d-flex" role="search" id="ricerca">
-                        <input class="form-control me-2" type="search" placeholder="Prodotto" aria-label="Search">
-                        <button class="btn btn-success" type="submit">Cerca</button>
-                    </form>
+                    <div class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Prodotto" aria-label="Search"
+                            id="ricerca">
+                        <button class="btn btn-success" onclick="ricerca()"><a class="text-white text-decoration-none"
+                                href="" id="invio">Cerca</a></button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
 
-<script src="js/bootstrap.bundle.min.js">
-    document.getElementById('ricerca').addEventListener('submit', function (event) {
+<script src="js/bootstrap.bundle.min.js"></script>
+<script>
+
+    function ricerca() {
+        const search = document.getElementById('ricerca').value;
+        const url = `CatalogoProdotti.html?title=${search}`;
+        const invio = document.getElementById('invio');
+        invio.href = url;
+    }
+
+    /*document.getElementById('ricerca').addEventListener('submit', function (event) {
+        event.preventDefault();
         const url = new URL(window.location.search);
-        const title = url.get('title').value;
     })
-
-
-    /*fetch('https://fakestoreapi.com/products')
+    fetch('https://fakestoreapi.com/products')
         .then(res => res.json())
         .then(json => console.log(json))*/
-
 </script>
 
 </html>

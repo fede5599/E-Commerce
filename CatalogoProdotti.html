@@ -1,0 +1,161 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esercizio E-commerce</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/prodotti.css">
+</head>
+
+<body onload="filtraLista()">
+
+  <!-- Navbar -->
+  <nav class="navbar bg-dark navbar-expand-lg border-bottom" data-bs-theme="dark">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="CatalogoProdotti.html">Prodotti</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Categorie</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login.html">Accedi</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="carrello.html">Carrello</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <!--CATALOGO PRODOTTI-->
+
+
+
+  <!--CATALOGO PRODOTTI-->
+  <div class="container mt-5">
+    <h1 style="text-align: center; font-weight: 800;">Catalogo Prodotti</h1>
+    <div class="d-flex justify-content-evenly my-5">
+      <button class="btn btn-primary" onclick="filtraList(`men's clothing`)">Abbigliamento Uomo</button>
+      <button class="btn btn-primary" onclick="filtraList(`women's clothing`)">Abbigliamento Donna</button>
+      <button class="btn btn-primary" onclick="filtraList(`jewelery`)">Gioielli</button>
+      <button class="btn btn-primary" onclick="filtraList(`electronics`)">Elettronica</button>
+    </div>
+    <div id="listaProdotti" class="row"></div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+  <script>
+    const listaProdotti = document.getElementById('listaProdotti');
+
+    function mostraList() {
+
+    }
+
+    function filtraList(categoria) {
+      listaProdotti.innerHTML = ''
+      const url = 'https://fakestoreapi.com/products'
+      fetch(url)
+        .then(res => res.json())
+        .then(prodotti => {
+          prodotti.forEach(prodotto => {
+            if (prodotto.category === categoria) {
+              const div = document.createElement('div');
+              div.className = 'col-md-4';
+              div.innerHTML = `
+                    <div class=col>
+                    <div class="card mb-4">   
+                  <img src="${prodotto.image}" class="card-img-top img-fluid" alt="${prodotto.title}">
+                  <div class="card-body">
+                    <h5 class="card-title">${prodotto.title}</h5>
+                    <p class="card-text">${prodotto.description}</p>
+                    <a href="Prodotto.html?id=${prodotto.id}" class="btn btn-primary">View Product</a>
+                  </div>
+                </div>
+                </div>
+              `;
+              listaProdotti.appendChild(div);
+            }
+          });
+        });
+    }
+
+
+
+    function filtraLista() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const nome = urlParams.get('title');
+      console.log(nome);
+      listaProdotti.innerHTML = ''
+      const url = 'https://fakestoreapi.com/products'
+      if (nome === '') {
+        const url = 'https://fakestoreapi.com/products'
+        fetch(url)
+          .then(res => res.json())
+          .then(prodotti => {
+            prodotti.forEach(prodotto => {
+              const div = document.createElement('div');
+              div.className = 'col-md-4 mb-4';
+              div.innerHTML = `
+                    <div class=col>
+                    <div class="card">   
+                  <img src="${prodotto.image}" class="card-img-top img-fluid" alt="${prodotto.title}">
+                  <div class="card-body">
+                    <h5 class="card-title">${prodotto.title}</h5>
+                    <p class="card-text">${prodotto.description}</p>
+                    <a href="Prodotto.html?id=${prodotto.id}" class="btn btn-primary">View Product</a>
+                  </div>
+                </div>
+                </div>
+              `;
+              listaProdotti.appendChild(div);
+            });
+          });
+      } else {
+        fetch(url)
+          .then(res => res.json())
+          .then(prodotti => {
+            prodotti.forEach(prodotto => {
+              if (prodotto.title.includes(nome) || prodotto.description.includes(nome)) {
+                const div = document.createElement('div');
+                div.className = 'col-md-4';
+                div.innerHTML = `
+                    <div class=col>
+                    <div class="card mb-4">   
+                  <img src="${prodotto.image}" class="card-img-top img-fluid" alt="${prodotto.title}">
+                  <div class="card-body">
+                    <h5 class="card-title">${prodotto.title}</h5>
+                    <p class="card-text">${prodotto.description}</p>
+                    <a href="Prodotto.html?id=${prodotto.id}" class="btn btn-primary">View Product</a>
+                  </div>
+                </div>
+                </div>
+              `;
+                listaProdotti.appendChild(div);
+              }
+            });
+          });
+      }
+    }
+
+
+  </script>
+
+
+
+
+
+
+</body>
+
+</html>
