@@ -32,5 +32,9 @@
             </div>
           </nav>
     </body>
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js">
+        fetch('https://fakestoreapi.com/products')
+            .then(res=>res.json())
+            .then(json=>console.log(json))
+    </script>
 </html>
